@@ -1,0 +1,8 @@
+.signin-base {
+    width: 100vw;
+    height: 100vh;
+}
+
+.login-form input {
+    border: var(--size-xxs) solid var(--color-border);
+}

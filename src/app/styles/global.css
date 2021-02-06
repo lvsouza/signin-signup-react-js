@@ -36,11 +36,11 @@
     margin: 0;
     padding: 0;
     outline: none;
-    user-select: none;
+    /* user-select: none;
     -ms-user-select: none;
     box-sizing: border-box;
     -webkit-user-select: none;
-    -moz-user-select: -moz-none;
+    -moz-user-select: -moz-none; */
     font-family: var(--font-family);
     font-weight: var(--font-weight-m);
     -webkit-font-smoothing:antialiased;
@@ -82,7 +82,6 @@ input, textarea, select {
     padding: var(--padding-s);
     padding-right: var(--padding-xs);
     padding-left: var(--padding-xs);
-    color: var(--color-text-white);
 }
 
 a {

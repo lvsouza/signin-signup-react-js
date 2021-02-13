@@ -36,11 +36,6 @@
     margin: 0;
     padding: 0;
     outline: none;
-    /* user-select: none;
-    -ms-user-select: none;
-    box-sizing: border-box;
-    -webkit-user-select: none;
-    -moz-user-select: -moz-none; */
     font-family: var(--font-family);
     font-weight: var(--font-weight-m);
     -webkit-font-smoothing:antialiased;
@@ -69,6 +64,10 @@ div, nav, form {
     display: -ms-flexbox;
     display: -webkit-flex;
     background-color: transparent;
+}
+
+label, h1, h2, h3, h4, h5, h6, span {
+    color: var(--color-text);
 }
 
 body, input, button, textarea {

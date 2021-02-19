@@ -3,10 +3,6 @@
     height: 100vh;
 }
 
-.login-form input {
-    border: var(--size-xxs) solid var(--color-border);
-}
-
 .dark-mode-container {
     position: absolute;
     bottom: 0;

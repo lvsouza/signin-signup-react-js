@@ -19,8 +19,8 @@ export const Signin: React.FC = () => {
     }, [email, password]);
 
     return (
-        <div className="signin-base background flex-content-center flex-items-center">
-            <div className="padding-g shadow-m border-red flex-column flex-items-center background-paper">
+        <div className="signin-base flex-content-center flex-items-center">
+            <div className="padding-g shadow-m border-radius-soft flex-column flex-items-center background-paper">
                 <h2>Fazer login</h2>
 
                 <div className="margin-top-m">
@@ -32,7 +32,7 @@ export const Signin: React.FC = () => {
                             value={email}
                             placeholder="Digite seu email"
                             onChange={(e) => setEmail(e.target.value)}
-                            className="background padding-m font-size-m"
+                            className="padding-m font-size-m"
                         />
 
                         <input
@@ -42,7 +42,7 @@ export const Signin: React.FC = () => {
                             value={password}
                             placeholder="Digite sua senha"
                             onChange={(e) => setPassword(e.target.value)}
-                            className="background padding-m font-size-m margin-top-s"
+                            className="padding-m font-size-m margin-top-s"
                         />
 
                         <label className="font-size-m margin-top-s padding-top-s padding-bottom-s display-flex flex-items-center">
@@ -52,7 +52,6 @@ export const Signin: React.FC = () => {
                                 type="checkbox"
                                 checked={keepConnected}
                                 className="margin-right-s"
-                                placeholder="Digite sua senha"
                                 onChange={() => setKeepConnected(!keepConnected)}
                             />
                             Manter conectado

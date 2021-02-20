@@ -1,6 +1,9 @@
 import React from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    /**
+     * Tipos diferentes de estilo do botão
+     */
     variant?: 'contained' | 'outlined' | 'text';
 }
 export const Button: React.FC<ButtonProps> = ({ variant, ...props }) => {

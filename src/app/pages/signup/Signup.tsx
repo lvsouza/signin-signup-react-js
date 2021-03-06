@@ -1,12 +1,14 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
+import { SignupService } from '../../shared/services/signup-service/SignupService';
 import { Button } from '../../shared/components/Button';
 import { useTheme } from '../../shared/hooks/useTheme';
 import './Signup.css';
 
 export const Signup: React.FC = () => {
     const repeatedPasswordRef = useRef<HTMLInputElement>(null);
+    const history = useHistory();
 
     const { isDark, toggleDarkMode } = useTheme();
 
@@ -14,7 +16,6 @@ export const Signup: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUserName] = useState('');
-    const [keepConnected, setKeepConnected] = useState(true);
     const [repeatedPassword, setRepeatedPassword] = useState('');
 
     const handleOnChangePassword = useCallback((value: string) => {
@@ -45,17 +46,28 @@ export const Signup: React.FC = () => {
         }
     }, [password]);
 
-    const handleSubmit = useCallback((event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        console.log(email, password);
+        console.log(name, username, email, password);
 
-    }, [email, password, repeatedPassword]);
+        const result = await SignupService.signup({ name, email, password, username });
+
+        if (result.success) {
+            history.push('/sign');
+        } else {
+            if (!result.messages || result.messages.length == 0){
+                alert('Erro no cadastro!');
+            } else {
+                alert(result.messages.join(',\n'));
+            }
+        }
+    }, [name, username, email, password]);
 
     return (
         <div className="signin-base flex-content-center flex-items-center">
-            <div className="padding-g  translate-in-y shadow-m border-radius-soft flex-column flex-items-center background-paper">
-                <h2>Fazer login</h2>
+            <div className="padding-g translate-in-y shadow-m border-radius-soft flex-column flex-items-center background-paper">
+                <h2>Cadastrar</h2>
 
                 <div className="margin-top-m">
                     <form className="login-form flex-column" onSubmit={handleSubmit}>
@@ -110,23 +122,13 @@ export const Signup: React.FC = () => {
                             onChange={(e) => handleOnChangeRepeatedPassword(e.target.value)}
                         />
 
-                        <label className="font-size-m margin-top-s padding-top-s padding-bottom-s display-flex flex-items-center">
-                            <input
-                                type="checkbox"
-                                checked={keepConnected}
-                                className="margin-right-s"
-                                onChange={() => setKeepConnected(!keepConnected)}
-                            />
-                            Manter conectado
-                        </label>
-
                         <Button>Cadastrar</Button>
                     </form>
 
                 </div>
 
                 <Link to="/sign" className="font-size-m margin-top-m font-weight-g">
-                    Lagar-se
+                    Fazer login
                 </Link>
             </div>
 

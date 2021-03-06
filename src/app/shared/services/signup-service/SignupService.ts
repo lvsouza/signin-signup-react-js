@@ -1,3 +1,6 @@
+import { AxiosError } from "axios";
+
+import { IRequestResult } from "../../interfaces/IRequestResult";
 import { Api } from "../axios-config/AxiosConfig";
 
 interface UserSignup {
@@ -7,12 +10,34 @@ interface UserSignup {
     password: string;
 }
 
-const signup = async (user: UserSignup): Promise<boolean> => {
+const signup = async (user: UserSignup): Promise<IRequestResult> => {
     try {
         await Api.post('/SignUp', user);
-        return true;
+        return { success: true };
     } catch (error) {
-        return false;
+        const err = error as AxiosError;
+
+        const result: IRequestResult = { messages: [], success: false };
+
+        if (err.response?.data) {
+            err.response.data.errors?.Password?.forEach((fieldError: string) => {
+                result.messages?.push('Senha: ' + fieldError);
+            });
+
+            err.response.data.errors?.Email?.forEach((fieldError: string) => {
+                result.messages?.push('Email: ' + fieldError);
+            });
+
+            err.response.data.errors?.Name?.forEach((fieldError: string) => {
+                result.messages?.push('Nome: ' + fieldError);
+            });
+
+            err.response.data.errors?.UserName?.forEach((fieldError: string) => {
+                result.messages?.push('Nome de usuário: ' + fieldError);
+            });
+        }
+
+        return result;
     }
 }
 

@@ -20,7 +20,7 @@ export const Signin: React.FC = () => {
 
     return (
         <div className="signin-base flex-content-center flex-items-center">
-            <div className="padding-g shadow-m border-radius-soft flex-column flex-items-center background-paper">
+            <div className="padding-g translate-in-y shadow-m border-radius-soft flex-column flex-items-center background-paper">
                 <h2>Fazer login</h2>
 
                 <div className="margin-top-m">

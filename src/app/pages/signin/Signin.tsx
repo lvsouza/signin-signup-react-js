@@ -1,22 +1,38 @@
 import React, { useCallback, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
-import { Button } from '../../shared/components/Button';
-import { useTheme } from '../../shared/hooks/useTheme';
+import { Button, DarkModeCheckbox } from '../../shared/components';
+import { SigninService } from '../../shared/services';
 import './Signin.css';
 
 export const Signin: React.FC = () => {
-    const { isDark, toggleDarkMode } = useTheme();
+    const history = useHistory();
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [keepConnected, setKeepConnected] = useState(true);
 
-    const handleSubmit = useCallback((event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        console.log(email, password);
-    }, [email, password]);
+        setIsLoading(true);
+
+        const result = await SigninService.signin(email, password);
+
+        setIsLoading(false);
+
+        if (result.success) {
+            history.push('/dashboard');
+        } else {
+            if (!result.messages || result.messages.length === 0) {
+                alert('Erro no login!');
+            } else {
+                alert(result.messages.join(',\n'));
+            }
+        }
+    }, [email, password, history]);
 
     return (
         <div className="signin-base flex-content-center flex-items-center">
@@ -30,6 +46,7 @@ export const Signin: React.FC = () => {
                             type="email"
                             minLength={2}
                             value={email}
+                            disabled={isLoading}
                             placeholder="Digite seu email"
                             onChange={(e) => setEmail(e.target.value)}
                             className="padding-m font-size-m"
@@ -40,6 +57,7 @@ export const Signin: React.FC = () => {
                             minLength={2}
                             type="password"
                             value={password}
+                            disabled={isLoading}
                             placeholder="Digite sua senha"
                             onChange={(e) => setPassword(e.target.value)}
                             className="padding-m font-size-m margin-top-s"
@@ -48,6 +66,7 @@ export const Signin: React.FC = () => {
                         <label className="font-size-m margin-top-s padding-top-s padding-bottom-s display-flex flex-items-center">
                             <input
                                 type="checkbox"
+                                disabled={isLoading}
                                 checked={keepConnected}
                                 className="margin-right-s"
                                 onChange={() => setKeepConnected(!keepConnected)}
@@ -55,27 +74,26 @@ export const Signin: React.FC = () => {
                             Manter conectado
                         </label>
 
-                        <Button>Entrar</Button>
+                        <Button disabled={isLoading}>Entrar</Button>
                     </form>
 
                 </div>
 
-                <Link to="/signup" className="font-size-m margin-top-m font-weight-g">
-                    Cadastrar-se
-                </Link>
+                {!isLoading
+                    ? (
+                        <Link to="/sign" className="font-size-m margin-top-m font-weight-g">
+                            Cadastrar-se
+                        </Link>
+                    )
+                    : (
+                        <p className="font-size-m margin-top-m font-weight-g text-success">
+                            Cadastrar-se
+                        </p>
+                    )
+                }
             </div>
 
-            <div className="dark-mode-container">
-                <label className="font-size-m padding-g display-flex flex-items-center">
-                    <input
-                        type="checkbox"
-                        checked={isDark}
-                        className="margin-right-s"
-                        onChange={() => toggleDarkMode()}
-                    />
-                    Tema escuro
-                </label>
-            </div>
+            <DarkModeCheckbox />
         </div>
     );
 }

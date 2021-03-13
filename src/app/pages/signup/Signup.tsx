@@ -1,16 +1,16 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
+import { DarkModeCheckbox } from '../../shared/components/dark-mode-checkbox/DarkModeCheckbox';
 import { SignupService } from '../../shared/services/signup-service/SignupService';
 import { Button } from '../../shared/components/Button';
-import { useTheme } from '../../shared/hooks/useTheme';
 import './Signup.css';
 
 export const Signup: React.FC = () => {
     const repeatedPasswordRef = useRef<HTMLInputElement>(null);
     const history = useHistory();
 
-    const { isDark, toggleDarkMode } = useTheme();
+    const [isLoading, setIsLoading] = useState(false);
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -49,20 +49,22 @@ export const Signup: React.FC = () => {
     const handleSubmit = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        console.log(name, username, email, password);
+        setIsLoading(true);
 
         const result = await SignupService.signup({ name, email, password, username });
+
+        setIsLoading(false);
 
         if (result.success) {
             history.push('/sign');
         } else {
-            if (!result.messages || result.messages.length == 0){
+            if (!result.messages || result.messages.length === 0) {
                 alert('Erro no cadastro!');
             } else {
                 alert(result.messages.join(',\n'));
             }
         }
-    }, [name, username, email, password]);
+    }, [name, username, email, password, history]);
 
     return (
         <div className="signin-base flex-content-center flex-items-center">
@@ -76,6 +78,7 @@ export const Signup: React.FC = () => {
                             type="text"
                             value={name}
                             minLength={2}
+                            disabled={isLoading}
                             placeholder="Digite seu nome"
                             onChange={(e) => setName(e.target.value)}
                             className="padding-m margin-top-s font-size-m"
@@ -86,6 +89,7 @@ export const Signup: React.FC = () => {
                             minLength={2}
                             maxLength={80}
                             value={username}
+                            disabled={isLoading}
                             placeholder="Digite seu nome de usuário"
                             onChange={(e) => setUserName(e.target.value)}
                             className="padding-m margin-top-s font-size-m"
@@ -96,6 +100,7 @@ export const Signup: React.FC = () => {
                             type="email"
                             minLength={2}
                             value={email}
+                            disabled={isLoading}
                             placeholder="Digite seu email"
                             onChange={(e) => setEmail(e.target.value)}
                             className="padding-m margin-top-s font-size-m"
@@ -106,6 +111,7 @@ export const Signup: React.FC = () => {
                             minLength={2}
                             type="password"
                             value={password}
+                            disabled={isLoading}
                             placeholder="Digite sua senha"
                             className="padding-m font-size-m margin-top-s"
                             onChange={(e) => handleOnChangePassword(e.target.value)}
@@ -115,6 +121,7 @@ export const Signup: React.FC = () => {
                             required
                             minLength={2}
                             type="password"
+                            disabled={isLoading}
                             value={repeatedPassword}
                             ref={repeatedPasswordRef}
                             placeholder="Digite sua senha novamente"
@@ -122,27 +129,28 @@ export const Signup: React.FC = () => {
                             onChange={(e) => handleOnChangeRepeatedPassword(e.target.value)}
                         />
 
-                        <Button>Cadastrar</Button>
+                        <Button disabled={isLoading}>
+                            {!isLoading ? "Cadastrar" : "Carregando..."}
+                        </Button>
                     </form>
 
                 </div>
 
-                <Link to="/sign" className="font-size-m margin-top-m font-weight-g">
-                    Fazer login
-                </Link>
+                {!isLoading
+                    ? (
+                        <Link to="/sign" className="font-size-m margin-top-m font-weight-g">
+                            Fazer login
+                        </Link>
+                    )
+                    : (
+                        <p className="font-size-m margin-top-m font-weight-g text-success">
+                            Fazer login
+                        </p>
+                    )
+                }
             </div>
 
-            <div className="dark-mode-container">
-                <label className="font-size-m padding-g display-flex flex-items-center">
-                    <input
-                        type="checkbox"
-                        checked={isDark}
-                        className="margin-right-s"
-                        onChange={() => toggleDarkMode()}
-                    />
-                    Tema escuro
-                </label>
-            </div>
+            <DarkModeCheckbox />
         </div>
     );
 }

@@ -1,12 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
-import { Dashboard } from '../pages/dashboard/Dashboard';
-import { Signin } from '../pages/signin/Signin';
-import { Signup } from '../pages/signup/Signup';
+import { Dashboard, Signin, Signup } from '../pages';
 
 export const Routes: React.FC = () => {
-
     return (
         <BrowserRouter>
             <Switch>

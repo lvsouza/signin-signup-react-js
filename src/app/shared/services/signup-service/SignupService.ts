@@ -35,6 +35,12 @@ const signup = async (user: UserSignup): Promise<IRequestResult> => {
             err.response.data.errors?.UserName?.forEach((fieldError: string) => {
                 result.messages?.push('Nome de usuário: ' + fieldError);
             });
+        } else if (err.message === 'Network Error') {
+            if (result.messages) {
+                result.messages.push("Certifique-se de estar conectado na internet.");
+            }
+
+            return result;
         }
 
         return result;

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "cross-env REACT_API_URL=${process.env.API_URL} react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -17,7 +17,6 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "axios": "^0.21.1",
-    "cross-env": "^7.0.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",

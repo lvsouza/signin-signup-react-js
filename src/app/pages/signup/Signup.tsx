@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import { DarkModeCheckbox } from '../../shared/components/dark-mode-checkbox/DarkModeCheckbox';
-import { SignupService } from '../../shared/services/signup-service/SignupService';
+import { SignUpService } from '../../shared/services/signup-service/SignupService';
 import { Button } from '../../shared/components/Button';
 import './Signup.css';
 
@@ -51,7 +51,7 @@ export const Signup: React.FC = () => {
 
         setIsLoading(true);
 
-        const result = await SignupService.signup({ name, email, password, username });
+        const result = await SignUpService.signUp({ name, email, password, username });
 
         setIsLoading(false);
 

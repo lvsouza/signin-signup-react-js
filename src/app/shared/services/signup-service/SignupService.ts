@@ -3,16 +3,16 @@ import { AxiosError } from "axios";
 import { IRequestResult } from "../../interfaces/IRequestResult";
 import { Api } from "../axios-config/AxiosConfig";
 
-interface UserSignup {
+interface IUserSignUp {
     name: string;
     email: string;
     username: string;
     password: string;
 }
 
-const signup = async (user: UserSignup): Promise<IRequestResult> => {
+const signUp = async (user: IUserSignUp): Promise<IRequestResult> => {
     try {
-        await Api.post('/SignUp', user);
+        await Api.post('/sign-up', user);
         return { success: true };
     } catch (error) {
         const err = error as AxiosError;
@@ -47,6 +47,6 @@ const signup = async (user: UserSignup): Promise<IRequestResult> => {
     }
 }
 
-export const SignupService = {
-    signup
+export const SignUpService = {
+    signUp
 };

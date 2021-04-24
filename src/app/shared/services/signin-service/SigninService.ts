@@ -3,14 +3,9 @@ import { AxiosError } from "axios";
 import { IRequestResult } from "../../interfaces/IRequestResult";
 import { Api } from "../axios-config/AxiosConfig";
 
-const signin = async (email: string, password: string): Promise<IRequestResult> => {
+const signIn = async (email: string, password: string): Promise<IRequestResult> => {
     try {
-        await Api.post('/SignIn', undefined, {
-            headers: {
-                email,
-                password
-            }
-        });
+        await Api.post('/sign-in', { email, password });
 
         return { success: true };
     } catch (error) {
@@ -30,6 +25,6 @@ const signin = async (email: string, password: string): Promise<IRequestResult> 
     }
 }
 
-export const SigninService = {
-    signin
+export const SignInService = {
+    signIn
 };

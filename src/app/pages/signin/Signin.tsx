@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import { Button, DarkModeCheckbox } from '../../shared/components';
-import { SigninService } from '../../shared/services';
+import { SignInService } from '../../shared/services';
 import './Signin.css';
 
 export const Signin: React.FC = () => {
@@ -19,7 +19,7 @@ export const Signin: React.FC = () => {
 
         setIsLoading(true);
 
-        const result = await SigninService.signin(email, password);
+        const result = await SignInService.signIn(email, password);
 
         setIsLoading(false);
 
@@ -81,7 +81,7 @@ export const Signin: React.FC = () => {
 
                 {!isLoading
                     ? (
-                        <Link to="/sign" className="font-size-m margin-top-m font-weight-g">
+                        <Link to="/signup" className="font-size-m margin-top-m font-weight-g">
                             Cadastrar-se
                         </Link>
                     )

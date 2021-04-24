@@ -3610,6 +3610,11 @@ cross-spawn@^6.0.0:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
+crossenv@^0.0.2-security:
+  version "0.0.2-security"
+  resolved "https://registry.yarnpkg.com/crossenv/-/crossenv-0.0.2-security.tgz#ffd6ae6a6e9035d811f6dde88f8393c63b71ad6e"
+  integrity sha512-Zet/ldwzo70I+vUnjM9yHCWo2iqK/RM2s2VnZDNPE/fN062UXYXGqu9Hd7HlhNVhnYGclPcjNoySWhug5lctHw==
+
 crypto-browserify@^3.11.0:
   version "3.12.0"
   resolved "https://registry.yarnpkg.com/crypto-browserify/-/crypto-browserify-3.12.0.tgz#396cf9f3137f03e4b8e532c58f698254e00f80ec"

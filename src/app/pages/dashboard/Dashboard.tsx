@@ -6,14 +6,7 @@ import './Dashboard.css';
 export const Dashboard: React.FC = () => {
     return (
         <div className="dashboard-base flex-content-center flex-items-center">
-            lfghsdkfljhglkjshdfkjghslkjdfhgfdg
-            sdf
-            gs
-            dfg
-            sd
-            fg
-            sdfg
-
+            Olá dashboard
             <DarkModeCheckbox />
         </div>
     );

@@ -5,7 +5,7 @@ export const Environment = {
   /**
    * This is the base api url
    */
-  URL_API: process.env.REACT_APP_ENV === 'production' ? process.env.URL_API : 'http://localhost:3333/',
+  URL_API: process.env.REACT_APP_ENV === 'production' ? process.env.REACT_APP_URL_API : 'http://localhost:3333/',
   /**
    * Get if is running in production environment
    */

@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { Environment } from '../../environment';
 
 import { Button, DarkModeCheckbox } from '../../shared/components';
 import { SignInService } from '../../shared/services';
@@ -7,6 +8,8 @@ import './SignIn.css';
 
 export const SignIn: React.FC = () => {
     const history = useHistory();
+
+    console.log(Environment);
 
     const [isLoading, setIsLoading] = useState(false);
 

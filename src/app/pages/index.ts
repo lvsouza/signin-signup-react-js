@@ -1,3 +1,3 @@
 export * from './dashboard/Dashboard';
-export * from './signin/Signin';
-export * from './signup/Signup';
+export * from './sign-in/SignIn';
+export * from './sign-up/SignUp';

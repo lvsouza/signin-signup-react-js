@@ -1,3 +1,3 @@
-export * from './signin-service/SigninService';
-export * from './signup-service/SignupService';
+export * from './sign-in-service/SignInService';
+export * from './sign-up-service/SignUpService';
 export * from './axios-config/AxiosConfig';

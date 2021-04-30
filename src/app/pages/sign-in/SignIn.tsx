@@ -3,9 +3,9 @@ import { Link, useHistory } from 'react-router-dom';
 
 import { Button, DarkModeCheckbox } from '../../shared/components';
 import { SignInService } from '../../shared/services';
-import './Signin.css';
+import './SignIn.css';
 
-export const Signin: React.FC = () => {
+export const SignIn: React.FC = () => {
     const history = useHistory();
 
     const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +35,7 @@ export const Signin: React.FC = () => {
     }, [email, password, history]);
 
     return (
-        <div className="signin-base flex-content-center flex-items-center">
+        <div className="sign-in-base flex-content-center flex-items-center">
             <div className="padding-g translate-in-y shadow-m border-radius-soft flex-column flex-items-center background-paper">
                 <h2>Fazer login</h2>
 
@@ -81,7 +81,7 @@ export const Signin: React.FC = () => {
 
                 {!isLoading
                     ? (
-                        <Link to="/signup" className="font-size-m margin-top-m font-weight-g">
+                        <Link to="/sign-up" className="font-size-m margin-top-m font-weight-g">
                             Cadastrar-se
                         </Link>
                     )

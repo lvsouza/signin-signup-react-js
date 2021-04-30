@@ -1,12 +1,11 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import { DarkModeCheckbox } from '../../shared/components/dark-mode-checkbox/DarkModeCheckbox';
-import { SignUpService } from '../../shared/services/signup-service/SignupService';
-import { Button } from '../../shared/components/Button';
-import './Signup.css';
+import { Button, DarkModeCheckbox } from '../../shared/components';
+import { SignUpService } from '../../shared/services';
+import './SignUp.css';
 
-export const Signup: React.FC = () => {
+export const SignUp: React.FC = () => {
     const repeatedPasswordRef = useRef<HTMLInputElement>(null);
     const history = useHistory();
 
@@ -67,7 +66,7 @@ export const Signup: React.FC = () => {
     }, [name, username, email, password, history]);
 
     return (
-        <div className="signin-base flex-content-center flex-items-center">
+        <div className="sign-in-base flex-content-center flex-items-center">
             <div className="padding-g translate-in-y shadow-m border-radius-soft flex-column flex-items-center background-paper">
                 <h2>Cadastrar</h2>
 

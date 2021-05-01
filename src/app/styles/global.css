@@ -36,6 +36,7 @@
     margin: 0;
     padding: 0;
     outline: none;
+    font-size: var(--font-size-m);
     font-family: var(--font-family);
     font-weight: var(--font-weight-m);
     -webkit-font-smoothing: antialiased;

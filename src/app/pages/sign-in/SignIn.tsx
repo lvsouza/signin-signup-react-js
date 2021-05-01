@@ -2,11 +2,11 @@ import React, { useCallback, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import { Button, DarkModeCheckbox } from '../../shared/components';
-import { SignInService } from '../../shared/services';
+import { useAuth } from '../../shared/hooks';
 import './SignIn.css';
 
 export const SignIn: React.FC = () => {
-    const history = useHistory();
+    const { login } = useAuth();
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -19,20 +19,10 @@ export const SignIn: React.FC = () => {
 
         setIsLoading(true);
 
-        const result = await SignInService.signIn(email, password);
+        await login(email, password);
 
         setIsLoading(false);
-
-        if (result.success) {
-            history.push('/dashboard');
-        } else {
-            if (!result.messages || result.messages.length === 0) {
-                alert('Erro no login!');
-            } else {
-                alert(result.messages.join(',\n'));
-            }
-        }
-    }, [email, password, history]);
+    }, [email, login, password]);
 
     return (
         <div className="sign-in-base flex-content-center flex-items-center">

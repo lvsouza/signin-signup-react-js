@@ -68,7 +68,7 @@ export const SignUp: React.FC = () => {
     return (
         <div className="sign-in-base flex-content-center flex-items-center">
             <div className="padding-g translate-in-y shadow-m border-radius-soft flex-column flex-items-center background-paper">
-                <h2>Cadastrar</h2>
+                <h2 className="font-size-xxg font-weight-g">Cadastrar</h2>
 
                 <div className="margin-top-m">
                     <form className="login-form flex-column" onSubmit={handleSubmit}>

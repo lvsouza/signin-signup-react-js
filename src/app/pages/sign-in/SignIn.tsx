@@ -40,7 +40,7 @@ export const SignIn: React.FC = () => {
     return (
         <div className="sign-in-base flex-content-center flex-items-center">
             <div className="padding-g translate-in-y shadow-m border-radius-soft flex-column flex-items-center background-paper">
-                <h2>Fazer login</h2>
+                <h2 className="font-size-xxg font-weight-g">Fazer login</h2>
 
                 <div className="margin-top-m">
                     <form className="login-form flex-column" onSubmit={handleSubmit}>

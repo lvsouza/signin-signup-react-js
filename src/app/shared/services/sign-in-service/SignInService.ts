@@ -3,11 +3,20 @@ import { AxiosError } from "axios";
 import { IRequestResult } from "../../interfaces/IRequestResult";
 import { Api } from "../axios-config/AxiosConfig";
 
-const signIn = async (email: string, password: string): Promise<IRequestResult> => {
+const signIn = async (email: string, password: string): Promise<IRequestResult<{ accessToken?: string }>> => {
     try {
-        await Api.post('/sign-in', { email, password });
+        const { data } = await Api.post('/sign-in', { email, password });
 
-        return { success: true };
+        if (data?.accessToken) {
+            return {
+                success: true,
+                data: {
+                    accessToken: data.accessToken
+                }
+            };
+        } else {
+            return { success: false, data: {} };
+        }
     } catch (error) {
         const err = error as AxiosError;
 

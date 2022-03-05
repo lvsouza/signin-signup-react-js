@@ -10,36 +10,33 @@ interface IAuthorizationContextData {
 export const AuthorizationContext = createContext<IAuthorizationContextData>({} as IAuthorizationContextData);
 
 export const AuthorizationProvider: React.FC = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('accessToken'));
 
   const handleLogin = useCallback(async (email: string, password: string) => {
-    const result = await SignInService.signIn(email, password);
+    const { success, messages, data } = await SignInService.signIn(email, password);
 
-    if (result.success) {
+    if (success && data?.accessToken) {
       setIsAuthenticated(true);
+      localStorage.setItem('accessToken', data.accessToken);
     } else {
-      if (!result.messages || result.messages.length === 0) {
+      if (!messages || messages.length === 0) {
         alert('Erro no login!');
       } else {
-        alert(result.messages.join(',\n'));
+        alert(messages.join(',\n'));
       }
 
       setIsAuthenticated(false);
+      localStorage.removeItem('accessToken');
     }
   }, []);
 
   const handleLogout = useCallback(async () => {
     setIsAuthenticated(false);
+    localStorage.removeItem('accessToken');
   }, []);
 
   return (
     <AuthorizationContext.Provider value={{ isAuthenticated, login: handleLogin, logout: handleLogout }}>
-      <input
-        type="checkbox"
-        checked={isAuthenticated}
-        onChange={() => setIsAuthenticated(!isAuthenticated)}
-      />
-
       {children}
     </AuthorizationContext.Provider>
   );
